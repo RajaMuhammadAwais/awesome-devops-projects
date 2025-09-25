@@ -1,0 +1,29 @@
+pipeline {
+  agent any
+  options {
+    timestamps()
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build Docker') {
+      steps {
+        sh 'docker build -t demo/simple-app:latest docker/simple-app'
+      }
+    }
+    stage('Run Container') {
+      steps {
+        sh 'docker rm -f simple-app || true'
+        sh 'docker run -d -p 5000:5000 --name simple-app demo/simple-app:latest'
+      }
+    }
+  }
+  post {
+    always {
+      sh 'docker rm -f simple-app || true'
+    }
+  }
+}
