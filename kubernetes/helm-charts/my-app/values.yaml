@@ -1,0 +1,18 @@
+replicaCount: 1
+
+image:
+  repository: demo/simple-app
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+container:
+  port: 5000
+
+resources: {}
+
+ingress:
+  enabled: false
