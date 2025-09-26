@@ -1,0 +1,22 @@
+name: License compliance (REUSE)
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  reuse-lint:
+    name: REUSE license check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: REUSE compliance check
+        uses: fsfe/reuse-action@v2
+        with:
+          # Fails if repository does not meet REUSE guidelines
+          args: --include-submodules lint

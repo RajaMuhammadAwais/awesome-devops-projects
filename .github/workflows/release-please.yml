@@ -1,0 +1,41 @@
+name: Release (auto tag + notes)
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    name: Generate release PR / tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release Please
+        uses: google-github-actions/release-please-action@v4
+        with:
+          # For general repos (no language-specific version files), use "simple".
+          release-type: simple
+          # Set to true to create GitHub Releases and tags when the PR is merged.
+          create-release: true
+          # Customize if your default branch is "main" or "master".
+          target-branch: ${{ github.ref_name }}
+          # Optional: Change to your repo name/owner if needed in forks
+          # token: ${{ secrets.GITHUB_TOKEN }}
+
+  # Optional: publish a GitHub Release when tags are pushed (redundant if create-release=true above).
+  gh-release:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
