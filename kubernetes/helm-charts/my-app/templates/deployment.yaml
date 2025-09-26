@@ -1,6 +1,9 @@
 # SPDX-FileCopyrightText: 2025 The Project Authors
 # SPDX-License-Identifier: Apache-2.0
 
+# SPDX-FileCopyrightText: 2025 The Project Authors
+# SPDX-License-Identifier: Apache-2.0
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,3 +24,14 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.container.port }}
+          securityContext:
+            readOnlyRootFilesystem: {{ .Values.security.readOnlyRootFilesystem }}
+            runAsNonRoot: {{ .Values.security.runAsNonRoot }}
+            runAsUser: {{ .Values.security.runAsUser }}
+          resources:
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
