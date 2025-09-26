@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 The Project Authors
+# SPDX-License-Identifier: Apache-2.0
+
 name: Conventional commits lint
 
 on:
@@ -9,5 +12,3 @@ jobs:
     steps:
       - name: Commitlint (Conventional Commits)
         uses: wagoid/commitlint-github-action@v6
-        with:
-          configFile: "" # uses default conventional commits rules
