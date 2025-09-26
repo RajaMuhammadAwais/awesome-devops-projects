@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 The Project Authors
+# SPDX-License-Identifier: Apache-2.0
+
 FROM python:3.11-slim
 
 WORKDIR /app

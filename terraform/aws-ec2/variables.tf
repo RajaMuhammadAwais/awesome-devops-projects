@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 The Project Authors
+# SPDX-License-Identifier: Apache-2.0
+
 variable "aws_region" {
   description = "AWS region to deploy into"
   type        = string
