@@ -1,0 +1,32 @@
+name: Terraform fmt and validate
+
+on:
+  pull_request:
+    paths:
+      - 'terraform/**'
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'terraform/**'
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform fmt (check)
+        run: terraform fmt -recursive -check
+
+      - name: Terraform init
+        run: terraform -chdir=terraform init -input=false
+        if: ${{ github.event_name != 'pull_request' }} # init may require creds; skip for PRs if needed
+
+      - name: Terraform validate
+        run: terraform -chdir=terraform validate

@@ -1,0 +1,28 @@
+name: Kubernetes manifests lint
+
+on:
+  pull_request:
+    paths:
+      - 'kubernetes/**'
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'kubernetes/**'
+
+jobs:
+  kube-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Lint Kubernetes manifests with kube-linter
+        shell: bash
+        run: |
+          if [ -d "kubernetes" ] && [ "$(ls -A kubernetes)" ]; then
+            docker run --rm -v "$PWD/kubernetes:/manifests:ro" ghcr.io/stackrox/kube-linter:v0.6.6 lint /manifests
+          else
+            echo "No Kubernetes manifests found in ./kubernetes; skipping lint."
+          fi
