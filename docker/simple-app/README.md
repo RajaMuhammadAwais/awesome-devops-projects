@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2025 The Project Authors
+SPDX-License-Identifier: Apache-2.0
+-->
+
 # Simple Flask App (Docker)
 
 A minimal Flask application to demonstrate Docker builds.

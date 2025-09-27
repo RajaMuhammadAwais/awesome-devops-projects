@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2025 The Project Authors
+# SPDX-License-Identifier: Apache-2.0
+
+name: Conventional commits lint
+
+on:
+  pull_request:
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Commitlint (Conventional Commits)
+        uses: wagoid/commitlint-github-action@v6
