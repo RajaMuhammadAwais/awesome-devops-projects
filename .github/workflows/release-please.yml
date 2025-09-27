@@ -22,14 +22,11 @@ jobs:
       - name: Release Please
         uses: google-github-actions/release-please-action@v4
         with:
-          # For general repos (no language-specific version files), use "simple".
           release-type: simple
-          # Set to true to create GitHub Releases and tags when the PR is merged.
           create-release: true
-          # Customize if your default branch is "main" or "master".
           target-branch: ${{ github.ref_name }}
-          # Optional: Change to your repo name/owner if needed in forks
-          # token: ${{ secrets.GITHUB_TOKEN }}
+          # Use a PAT to bypass org policy that blocks GITHUB_TOKEN from creating PRs
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
 
   # Optional: publish a GitHub Release when tags are pushed (redundant if create-release=true above).
   gh-release:
